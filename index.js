@@ -12,4 +12,34 @@ eye.addEventListener("click", function() {
     }
 });
 
+let info = {}
+let emailInput = document.querySelector("#email")
+let passInput = document.querySelector(".pass")
+
+emailInput.addEventListener("input", function() {
+    info.email = this.value
+});
+
+passInput.addEventListener("input", function(){
+    info.pass = this.value
+});
+
+
+const emailLog = document.querySelector("#email")
+const passLog = document.querySelector(".pass")
+const button = document.querySelector(".back-info")
+
+button.addEventListener("click", function(){
+    console.log(emailLog.value)
+    console.log(passLog.value)
+});
+
+
+
+
+
+
+
+
+
 
