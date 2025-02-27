@@ -30,8 +30,7 @@ const passLog = document.querySelector(".pass")
 const button = document.querySelector(".back-info")
 
 button.addEventListener("click", function(){
-    console.log(emailLog.value)
-    console.log(passLog.value)
+    console.log(info)
 });
 
 
