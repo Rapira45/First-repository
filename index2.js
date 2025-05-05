@@ -33,7 +33,7 @@ button.addEventListener("click", function(){
     console.log(info)
 });
 
-fetch('http://localhost:3000/sign-up', {
+fetch('http://localhost:3000/sign-in', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -47,14 +47,3 @@ fetch('http://localhost:3000/sign-up', {
 }).then(data => {
     console.log(data)
 })
-
-
-
-
-
-
-
-
-
-
-
