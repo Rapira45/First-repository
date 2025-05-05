@@ -39,15 +39,25 @@ fetch('http://localhost:3000/sign-up', {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        email,
-        password
+        email: "",  
+        password: ""     
     })
-}).then(response => {
-    return response.json()
-}).then(data => {
-    console.log(data)
 })
-
+.then(response => {
+    if (!response.ok) {
+        return response.json().then(err => Promise.reject(err));
+    }
+    return response.json();
+})
+.then(data => {
+    console.log("Success:", data);
+})
+.catch(error => {
+    console.error("Error:", error);
+    if (error.error === 'ValidationError') {
+        alert(error.message); 
+    }
+});
 
 
 
