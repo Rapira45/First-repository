@@ -14,14 +14,14 @@ eye.addEventListener("click", function() {
 
 let info = {}
 let emailInput = document.querySelector("#email")
-let passInput = document.querySelector(".pass")
+let passInput = document.querySelector("#password")
 
 emailInput.addEventListener("input", function() {
     info.email = this.value
 });
 
 passInput.addEventListener("input", function(){
-    info.pass = this.value
+    info.password = this.value
 });
 
 
@@ -29,41 +29,21 @@ const emailLog = document.querySelector("#email")
 const passLog = document.querySelector(".pass")
 const button = document.querySelector(".back-info")
 
-button.addEventListener("click", function(){
-    console.log(info)
-});
-
-fetch('http://localhost:3000/sign-up', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        email: "",  
-        password: ""     
+button.addEventListener("click", function(e){
+    e.preventDefault();
+    fetch('http://localhost:3000/sign-up', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(info)
+        
+    }).then(response => {
+       return response.json()
+    }).then(data => {
+        console.log(data)
     })
-})
-.then(response => {
-    if (!response.ok) {
-        return response.json().then(err => Promise.reject(err));
-    }
-    return response.json();
-})
-.then(data => {
-    console.log("Success:", data);
-})
-.catch(error => {
-    console.error("Error:", error);
-    if (error.error === 'ValidationError') {
-        alert(error.message); 
-    }
 });
-
-
-
-
-
-
 
 
 
