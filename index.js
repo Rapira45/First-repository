@@ -42,6 +42,9 @@ button.addEventListener("click", function(e){
        return response.json()
     }).then(data => {
         console.log(data)
+        if (data.user && data.user.id) {
+            localStorage.setItem('userId', data.user.id);
+        }
     })
 });
 
