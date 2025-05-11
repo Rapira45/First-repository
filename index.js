@@ -29,25 +29,33 @@ const emailLog = document.querySelector("#email")
 const passLog = document.querySelector(".pass")
 const button = document.querySelector(".back-info")
 
-button.addEventListener("click", function(e){
-    e.preventDefault();
-    fetch('http://localhost:3000/sign-up', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(info)
-        
-    }).then(response => {
-       return response.json()
-    }).then(data => {
-        console.log(data)
-        if (data.user && data.user.id) {
-            localStorage.setItem('userId', data.user.id);
-        }
-    })
+button.addEventListener("click", async (e) => {
+  e.preventDefault();
+  
+  try {
+    const info = {
+      email: document.getElementById('email').value,
+      password: document.getElementById('password').value
+    };
+
+    const response = await fetch('http://localhost:3000/sign-up', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(info)
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Registration error");
+    }
+
+    if (data.user?.id) {
+      localStorage.setItem('userId', data.user.id);
+      window.location.href = "tapalka.html"; 
+    }
+    
+  } catch (error) {
+    alert(error.message);
+  }
 });
-
-
-
-

@@ -29,22 +29,29 @@ const emailLog = document.querySelector("#email")
 const passLog = document.querySelector(".pass")
 const button = document.querySelector(".back-info")
 
-button.addEventListener("click", function(e){
+button.addEventListener("click", function(e) {
     e.preventDefault();
+    
     fetch('http://localhost:3000/sign-in', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(info)
-        
-    }).then(response => {
-       return response.json()
-    }).then(data => {
-        console.log(data)
-        if (data.user && data.user.id) {
-            localStorage.setItem('userId', data.user.id);
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(err => {
+                throw new Error(err.message); 
+            });
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.user?.id) {
+            window.location.href = "tapalka.html";
         }
     })
+    .catch(error => {
+        alert(error.message); 
+    });
 });
 
