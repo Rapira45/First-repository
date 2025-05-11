@@ -47,6 +47,7 @@ button.addEventListener("click", function(e) {
     })
     .then(data => {
         if (data.user?.id) {
+            localStorage.setItem('userId', data.user.id);
             window.location.href = "tapalka.html";
         }
     })

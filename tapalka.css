@@ -186,7 +186,16 @@ main {
     gap: 24px; 
 
 }
-
+#moneyyy {
+    color: white;
+    padding: 20px;
+    text-align: left; 
+    width: 150px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; 
+}
 .block {
     color: white;
     padding: 20px;
