@@ -76,3 +76,54 @@ function startPassiveIncome() {
 if (localStorage.getItem('userId')) {
     startPassiveIncome();
 }
+
+async function buyUpgrade(upgradeId) {
+    try {
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+            alert("Please login or sign up");
+            return;
+        }
+
+        const button = document.querySelector(`[data-upgrade-id="${upgradeId}"]`);
+        if (!button) {
+            alert("Button not found!");
+            return;
+        }
+        button.disabled = true;
+        const response = await fetch('http://localhost:3000/buy-upgrade', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                upgradeId: upgradeId,
+                userId: Number(userId) 
+            })
+        });
+
+        let data;
+        try {
+            data = await response.json();
+        } catch (e) {
+            throw new Error("Invalid server response");
+        }
+
+        if (!response.ok) {
+            throw new Error(data.error || "Unknown error");
+        }
+
+        const balanceElement = document.getElementById('moneyy');
+        const clickPowerElement = document.getElementById('click-power');
+        
+        if (balanceElement && data.balance !== undefined) {
+            balanceElement.textContent = data.balance;
+        }
+        
+        if (clickPowerElement && data.coinsPerClick !== undefined) {
+            clickPowerElement.textContent = data.coinsPerClick;
+        }
+
+    } catch (error) {
+        alert(error.message);
+        console.error(error);
+    }
+}
